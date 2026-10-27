@@ -1,5 +1,7 @@
 
 from datetime import datetime
+from datetime import date
+from pydantic import Field
 
 from pydantic import BaseModel, EmailStr, Field
 
@@ -19,3 +21,8 @@ class UserResponse(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+class ExpenseCreate(BaseModel):
+    amount: float = Field(gt=0)
+    category: str = Field(min_length=1, max_length=50)
+    note: str | None = None
+    date: date
